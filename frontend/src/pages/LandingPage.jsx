@@ -1,0 +1,56 @@
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { assets } from "../assets/assets";
+
+const LandingPage = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      {/* Background with overlay */}
+      <div
+        className="relative flex-grow bg-cover bg-center bg-no-repeat bg-fixed"
+        style={{ backgroundImage: `url(${assets.background_image})` }}
+      >
+        {/* Black overlay */}
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+
+        {/* Navbar */}
+        <div className="relative z-8 flex items-center justify-between px-8">
+          <img
+            src={assets.logo}
+            alt="logo"
+            className="h-40 md:h-42 drop-shadow-lg"
+          />
+          <button
+            onClick={() => navigate("/login")}
+            className="bg-green-900 text-white px-6 py-2 rounded shadow hover:bg-green-700 transition"
+          >
+            Login
+          </button>
+        </div>
+
+        {/* Hero Section */}
+        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4 py-10">
+          <h1 className="text-5xl md:text-6xl font-bold mb-4">Hey Explorer!</h1>
+          <p className="max-w-2xl text-lg mb-6">
+            Discover, create, and share amazing road trips around the world.
+            Adventure starts here!
+          </p>
+          <button
+            onClick={() => navigate("/login")}
+            className="bg-green-700 hover:bg-green-900 px-6 py-3 rounded-lg shadow text-lg transition"
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default LandingPage;
+
+
+
+

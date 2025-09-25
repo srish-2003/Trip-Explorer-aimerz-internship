@@ -11,6 +11,9 @@ router.post("/logout",authController.userLogout);
 router.get("/profile", protect, (req, res) => {
   res.json({ success: true, user: req.user });
 });
+router.get("/home", protect, (req, res) => {
+  res.json({ success: true, user: req.user });
+});
 
 
 
