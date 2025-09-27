@@ -1,30 +1,46 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { assets } from "../assets/assets";
+import { assets } from "../../assets/assets";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: connect with backend signup API
-    navigate("/login"); // redirect to Login after signup
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        alert("Signup successful! Please login.");
+        navigate("/login");
+      } else {
+        alert(data.message || "Failed to sign up");
+      }
+    } catch (err) {
+      console.error("Error signing up:", err);
+    }
   };
 
   return (
     <div className="bg-green-900 min-h-screen flex items-center justify-center">
       <div className="formcontainer bg-white rounded-lg shadow-lg flex overflow-hidden w-[900px]">
-        {/* Image section */}
         <div className="form-image w-1/2 hidden md:block">
           <img
-            src={assets.signup}
+            src={assets.signup_image}
             alt="signup"
             className="w-full h-full object-cover"
           />
         </div>
 
-        {/* Form section */}
         <div className="form-data w-full md:w-1/2 p-8 flex flex-col justify-center">
           <h2 className="text-3xl font-bold text-center mb-6">Sign Up</h2>
           <form onSubmit={handleSubmit} className="form-inputs space-y-4">
@@ -36,9 +52,9 @@ const Signup = () => {
                 type="text"
                 id="name"
                 className="w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-600"
-                value={formData.name}
+                value={formData.username}
                 onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
+                  setFormData({ ...formData, username: e.target.value })
                 }
                 required
               />
@@ -81,7 +97,6 @@ const Signup = () => {
             </button>
           </form>
 
-          {/* Link to login */}
           <div className="linkto text-center mt-4">
             <p className="text-sm">
               Already have an account?{" "}

@@ -1,8 +1,8 @@
-// backend/controllers/tripController.js
+
 const RoadTrip = require("../models/trip_model");
 const User = require("../models/user_models");
 
-// ✅ Public: fetch all trips
+// fetch all trips
 exports.getTrips = async (req, res) => {
   try {
     const trips = await RoadTrip.find()
@@ -15,7 +15,7 @@ exports.getTrips = async (req, res) => {
   }
 };
 
-// ✅ Public: fetch single trip by id
+// fetch single trip by id
 exports.getTripById = async (req, res) => {
   try {
     const trip = await RoadTrip.findById(req.params.id).populate("createdBy", "username email");

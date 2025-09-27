@@ -4,6 +4,23 @@ import { assets } from "../assets/assets";
 
 const UserLandingPage = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (err) {
+        console.error("Failed to parse stored user:", err);
+      }
+    }
+  }, []);
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/');
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -23,7 +40,7 @@ const UserLandingPage = () => {
             className="h-40 md:h-42 drop-shadow-lg"
           />
           <button
-            onClick={() => navigate("/logout")}
+            onClick={handleLogout}
             className="bg-green-900 text-white px-6 py-2 rounded shadow hover:bg-green-700 transition"
           >
             Logout
@@ -32,7 +49,7 @@ const UserLandingPage = () => {
 
         {/* Hero Section */}
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4 py-10">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">Hey Srishti!</h1>
+          <h1 className="text-5xl md:text-6xl font-bold mb-4">Hey {user?.username || "Explorer"}!</h1>
           <p className="max-w-2xl text-lg mb-6">
             Discover, create, and share amazing road trips around the world.
             Adventure starts here!
@@ -49,6 +66,6 @@ const UserLandingPage = () => {
   );
 };
 
-export default LandingPage;
+export default UserLandingPage;
 
 

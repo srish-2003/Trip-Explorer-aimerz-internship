@@ -1,15 +1,41 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { assets } from "../assets/assets";
+import { assets } from "../../assets/assets";
 
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/user"); // redirect to user landing page
+    }
+  }, [navigate]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: connect with backend login API
-    navigate("/user"); // redirect to UserLandingPage after login
+    try {
+      const response = await fetch(("http://localhost:5000/api/auth/login"),
+        {
+          method: 'POST',
+          headers: { "content-Type": "application/json" },
+          body: JSON.stringify(formData)
+        });
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify({ username: data.username, email: data.email }));
+        navigate('/user')
+      }
+      else {
+        alert(data.message || "Failed to Login");
+      }
+    }
+    catch (err) {
+      alert("Error logging in : ", err)
+    }
   };
 
   return (
@@ -18,7 +44,7 @@ const Login = () => {
         {/* Image section */}
         <div className="form-image w-1/2 hidden md:block">
           <img
-            src={assets.login}
+            src={assets.login_image}
             alt="login"
             className="w-full h-full object-cover"
           />
