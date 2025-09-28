@@ -1,12 +1,16 @@
-const express = require("express");
-const router = express.Router();
-const userController = require("../controllers/user.controllers");
+const express = require('express');
+const { 
+    saveTrip, 
+    getUserProfile 
+} = require('../controllers/user.controllers');
+const ensureAuthenticated = require('../middleware/auth.middleware');
 
-router.post("/create-user", userController.createUser);
-router.get("/get-all-users", userController.getUsers);
-router.get("/get-a-user", userController.getSingleUser);
-router.put("/update-user", userController.updateUser);
-router.delete("/delete-user", userController.deleteUser);
+const router = express.Router();
+
+// Route to get the logged-in user's complete profile (created & saved trips)
+router.get('/me', ensureAuthenticated, getUserProfile);
+
+// Route to save a specific trip to the user's account
+router.post('/save-trip/:tripId', ensureAuthenticated, saveTrip);
 
 module.exports = router;
-
