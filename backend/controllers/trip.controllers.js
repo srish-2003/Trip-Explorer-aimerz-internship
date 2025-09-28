@@ -113,15 +113,31 @@ const RoadTrip = require("../models/trip_model");
 const User = require("../models/user_models");
 
 exports.createTrip = async (req, res) => {
-    try {
-        const trip = await RoadTrip.create({ ...req.body, createdBy: req.user.id });
-        const user = await User.findById(req.user.id);
-        user.roadTrips.push(trip._id);
-        await user.save();
-        res.status(201).json({ success: true, trip });
-    } catch (err) {
-        res.status(500).json({ success: false, error: err.message });
+  try {
+    const { title, description, startPoint, destination, waypoints } = req.body;
+
+    if (!req.user) {
+      return res.status(401).json({ success: false, message: "Not authenticated" });
     }
+
+    const trip = await RoadTrip.create({
+      title,
+      description,
+      startPoint,
+      destination,
+      waypoints,
+      createdBy: req.user._id,
+    });
+
+    await User.findByIdAndUpdate(req.user._id, {
+      $push: { RoadTrip: trip._id },
+    });
+
+    res.status(201).json({ success: true, message: "Trip created successfully", trip });
+  } catch (err) {
+    console.error("Create Trip Error:", err);
+    res.status(500).json({ success: false, message: "Failed to create trip" });
+  }
 };
 
 exports.getAllPublicTrips = async (req, res) => {

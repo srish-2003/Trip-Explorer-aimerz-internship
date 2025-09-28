@@ -20,7 +20,7 @@ function App() {
         <Route path="/user" element={<ProtectedRoute><UserLandingPage /></ProtectedRoute>}/>
         <Route path="/home" element={<ProtectedRoute><HomePage /></ProtectedRoute>}/>
         <Route path="/create-trip" element={<ProtectedRoute><CreateTrip /></ProtectedRoute>}/>
-        <Route path="/user-account" element={<ProtectedRoute><AccountPage /></ProtectedRoute>}/>
+        {/* <Route path="/account" element={<ProtectedRoute><AccountPage /></ProtectedRoute>}/> */}
       </Routes>
     </Router>
   );

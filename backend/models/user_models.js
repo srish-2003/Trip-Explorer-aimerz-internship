@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "RoadTrip",
-      },
+      }
     ],
     savedTrips: [{
       type: mongoose.Schema.Types.ObjectId,

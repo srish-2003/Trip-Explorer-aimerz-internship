@@ -65,7 +65,7 @@ const CreateTrip = () => {
             });
             if (!response.ok) throw new Error('Failed to create trip');
             setMessage('Trip created successfully!');
-            setTimeout(() => navigate('/account'), 2000);
+            setTimeout(() => navigate('/home'), 2000);
         } catch (error) {
             setMessage(`Error: ${error.message}`);
         }

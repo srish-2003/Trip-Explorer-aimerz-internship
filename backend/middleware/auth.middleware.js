@@ -3,31 +3,41 @@ const User = require("../models/user_models");
 
 const ensureAuthenticated = async (req, res, next) => {
   try {
+    let token;
 
-    const authHeader = req.headers["authorization"];
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(403).json({ success: false, message: "Not authorized, no token" });
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith("Bearer")
+    ) {
+      token = req.headers.authorization.split(" ")[1];
     }
 
-    const token = authHeader.split(" ")[1]; // Extract token after "Bearer"
+    if (!token) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Not authorized, no token" });
+    }
 
-    // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id).select("-password");
 
-    // Find user from decoded token
-    const user = await User.findById(decoded.id)
-    
     if (!user) {
-      return res.status(401).json({ success: false, message: "User not found" });
+      return res
+        .status(401)
+        .json({ success: false, message: "User not found" });
     }
 
-    req.user = user; // attach user to request
+    req.user = user;
     next();
   } catch (err) {
-    return res.status(401).json({ success: false, message: "Invalid or expired token" });
+    console.error("Auth error:", err.message);
+    return res
+      .status(401)
+      .json({ success: false, message: "Invalid or expired token" });
   }
 };
 
 module.exports = ensureAuthenticated;
+
 
 

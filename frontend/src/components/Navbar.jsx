@@ -18,7 +18,7 @@ const Navbar = () => {
                     <nav className="hidden md:flex items-center space-x-8">
                         <NavLink to="/home" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="text-gray-700 hover:text-green-700 transition">Home</NavLink>
                         <NavLink to="/create-trip" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="text-gray-700 hover:text-green-700 transition">Create Trip</NavLink>
-                        <NavLink to="/account" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="text-gray-700 hover:text-green-700 transition">My Account</NavLink>
+                        {/* <NavLink to="/account" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="text-gray-700 hover:text-green-700 transition">My Account</NavLink> */}
                     </nav>
                     <button onClick={handleLogout} className="bg-green-700 text-white px-4 py-2 rounded-md hover:bg-green-800 transition">Logout</button>
                 </div>
