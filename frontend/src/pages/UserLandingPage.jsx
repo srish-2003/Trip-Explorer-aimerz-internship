@@ -1,7 +1,24 @@
+/**
+ * @fileoverview Landing page component.
+ * Displays the homepage UI with navigation and footer.
+ * Serves as the entry point for users visiting the app.
+ */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
+/**
+ * UserLandingPage component serves as the personalized landing page for logged-in users.
+ * It displays a hero section with a background image, logo, and call-to-action buttons.
+ * Users can navigate to the homepage or log out of their account.
+ *
+ * Features:
+ * - Fetches the logged-in user's information from localStorage
+ * - Full-screen background image with a dark overlay
+ * - Displays personalized greeting with the user's username
+ * - Logout button to clear local storage and redirect to the landing page
+ * - Hero section with title, description, and CTA button to navigate to /home
 
+ */
 const UserLandingPage = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);

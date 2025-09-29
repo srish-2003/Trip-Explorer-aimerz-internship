@@ -1,7 +1,21 @@
+/**
+ * @fileoverview Home page of roadtrip explorer.
+ */
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import TripCard from '../components/TripCard';
-
+/**
+ * HomePage component displays all available road trips.
+ * Users can explore trips, view details, and save trips to their account.
+ * Fetches trips from backend API and handles saving trips for the logged-in user.
+ *
+ * Features:
+ * - Fetches all trips from backend API on component mount
+ * - Displays trips in a responsive grid using TripCard components
+ * - Handles saving trips to the user account with feedback messages
+ * - Shows loading and error states
+ *
+ */
 const HomePage = () => {
     const [trips, setTrips] = useState([]);
     const [loading, setLoading] = useState(true);

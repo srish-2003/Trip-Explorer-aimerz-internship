@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Middleware for authenticating JWT tokens.
+ */
+
 const jwt = require("jsonwebtoken");
 const User = require("../models/user_models");
 

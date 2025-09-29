@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: frontend/src/pages/auth/Login.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: frontend/src/pages/auth/Login.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview Login page component for Trip Explorer.
+ * Provides form for user authentication and login flow.
+ *
+ * Features:
+ * - Captures email and password input.
+ * - Calls backend API for authentication.
+ * - Stores JWT token on success and redirects to dashboard.
+ */
+import React, { useState,useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { assets } from "../../assets/assets";
+
+const Login = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ email: "", password: "" });
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/user"); // redirect to user landing page
+    }
+  }, [navigate]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(("http://localhost:5000/api/auth/login"),
+        {
+          method: 'POST',
+          headers: { "content-Type": "application/json" },
+          body: JSON.stringify(formData)
+        });
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify({ username: data.username, email: data.email }));
+        navigate('/user')
+      }
+      else {
+        alert(data.message || "Failed to Login");
+      }
+    }
+    catch (err) {
+      alert("Error logging in : ", err)
+    }
+  };
+
+  return (
+    &lt;div className="bg-green-900 min-h-screen flex items-center justify-center">
+      &lt;div className="formcontainer bg-white rounded-lg shadow-lg flex overflow-hidden w-[900px]">
+        {/* Image section */}
+        &lt;div className="form-image w-1/2 hidden md:block">
+          &lt;img
+            src={assets.login_image}
+            alt="login"
+            className="w-full h-full object-cover"
+          />
+        &lt;/div>
+
+        {/* Form section */}
+        &lt;div className="form-data w-full md:w-1/2 p-8 flex flex-col justify-center">
+          &lt;h2 className="text-3xl font-bold text-center mb-6">Login&lt;/h2>
+          &lt;form onSubmit={handleSubmit} className="form-inputs space-y-4">
+            &lt;div>
+              &lt;label htmlFor="email" className="block text-sm font-medium">
+                Email
+              &lt;/label>
+              &lt;input
+                type="email"
+                id="email"
+                className="w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-600"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+                required
+              />
+            &lt;/div>
+            &lt;div>
+              &lt;label htmlFor="password" className="block text-sm font-medium">
+                Password
+              &lt;/label>
+              &lt;input
+                type="password"
+                id="password"
+                className="w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-600"
+                value={formData.password}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
+                required
+              />
+            &lt;/div>
+            &lt;button
+              type="submit"
+              className="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded transition"
+            >
+              Login
+            &lt;/button>
+          &lt;/form>
+
+          {/* Link to signup */}
+          &lt;div className="linkto text-center mt-4">
+            &lt;p className="text-sm">
+              Don’t have an account?{" "}
+              &lt;Link to="/signup" className="text-green-700 hover:underline">
+                Sign up
+              &lt;/Link>
+            &lt;/p>
+          &lt;/div>
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
+  );
+};
+
+export default Login;
+
+
+/** &lt;div className="bg-green-900">
+ *    &lt;div className="formcontainer">
+ *      &lt;div className="form-image">
+ *        img src=assets.login
+ *      &lt;/div>
+ *      &lt;div className="form-data">
+ *        &lt;div className="form-inputs">
+ *          abel:for email
+ *         imput type:email
+ *          label for password
+ *          imput type:password
+ *          submit button link to UserLandingPage 
+ *        &lt;/div>
+ *          &lt;div className="linkto">
+ *            dont have a account? link to signin
+ *          &lt;/div>
+ *      &lt;/div>
+ *      
+ * &lt;/div>
+ * &lt;/div> */
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#UserLandingPage">UserLandingPage</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Sep 29 2025 12:52:50 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,3 +1,12 @@
+/**
+ * @fileoverview Login page component for Trip Explorer.
+ * Provides form for user authentication and login flow.
+ *
+ * Features:
+ * - Captures email and password input.
+ * - Calls backend API for authentication.
+ * - Stores JWT token on success and redirects to dashboard.
+ */
 import React, { useState,useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { assets } from "../../assets/assets";

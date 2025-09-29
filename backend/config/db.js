@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Database configuration and connection handler for MongoDB using Mongoose.
+ */
+
 const mongoose = require("mongoose");
 
 const dbConnection = async () => {

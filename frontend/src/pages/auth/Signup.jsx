@@ -1,3 +1,12 @@
+/**
+ * @fileoverview Signup page component for Trip Explorer.
+ * Allows new users to register by entering details.
+ *
+ * Features:
+ * - Collects name, email, and password.
+ * - Calls backend API to create a new user.
+ * - Redirects to login after successful registration.
+ */
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { assets } from "../../assets/assets";

@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Footer component.
+ * Displays application footer content such as branding, copyright,
+ * and optional navigation links.
+ */
 import React from "react";
 
 const Footer = () => {

@@ -1,3 +1,12 @@
+/**
+ * @fileoverview Root React component for Trip Explorer frontend.
+ * Handles routing and layout for the application.
+ *
+ * Features:
+ * - Defines global routes for authentication, dashboard, and trip management.
+ * - Wraps private routes with authentication protection.
+ * - Renders shared components like header/footer if applicable.
+ */
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
@@ -13,7 +22,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Public routes */}
+        {/*routes */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

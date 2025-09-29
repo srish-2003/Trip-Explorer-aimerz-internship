@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Landing page component.
+ * Displays the homepage UI with navigation and footer.
+ * Serves as the entry point for users visiting the app.
+ */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";

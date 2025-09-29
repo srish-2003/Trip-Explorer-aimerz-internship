@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Account page component.
+ * Displays user profile information retrieved from the backend.
+ * Handles authentication check and error messages if the user is not logged in.
+ */
 import React, { useEffect, useState } from "react";
 
 const AccountPage = () => {

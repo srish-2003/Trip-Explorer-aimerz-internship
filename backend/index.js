@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Entry point of the backend server for Trip Explorer.
+ * Initializes Express app, connects to MongoDB, and sets up middleware and routes.
+ */
 const express = require("express");
 const connectDB = require("./config/db");
 const cors = require("cors");
@@ -8,6 +12,9 @@ const authRoutes = require('./routes/auth.routes');
 const tripRoutes = require('./routes/trip.routes');
 const userRoutes = require('./routes/user.routes');
 
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+
 // Load environment variables from .env file
 dotenv.config();
 
@@ -15,8 +22,7 @@ const app = express();
 
 // --- Middleware Configuration ---
 
-// 1. More Specific CORS Configuration
-const allowedOrigins = ['http://localhost:5173']; // Your Vite frontend URL
+const allowedOrigins = ['http://localhost:5173']; 
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -33,14 +39,40 @@ const corsOptions = {
   allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
 };
 
-// Use the new CORS options. This single line handles everything, including pre-flight.
 app.use(cors(corsOptions));
 
-
-// 2. Body Parsers to read JSON from requests
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Swagger options
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Trip Explorer API",
+      version: "1.0.0",
+      description: "API documentation for Trip Explorer backend",
+    },
+    servers: [
+      {
+        url: "http://localhost:5000",
+      },
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
+    },
+  },
+  apis: ["./routes/*.js"], // ← point to your routes folder
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // --- API Routes ---
 app.use('/api/auth', authRoutes);

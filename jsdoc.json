@@ -1,0 +1,17 @@
+{
+  "source": {
+    "include": ["frontend", "backend"],
+    "exclude": ["node_modules", "frontend/node_modules", "backend/node_modules"],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "opts": {
+    "destination": "docs",
+    "recurse": true,
+    "verbose": true
+  },
+  "templates": {
+    "cleverLinks": true,
+    "monospaceLinks": true
+  }
+}

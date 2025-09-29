@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Trip model schema for MongoDB using Mongoose.
+ */
+
 const mongoose = require("mongoose");
 
 const roadTripSchema = new mongoose.Schema(

@@ -1,3 +1,7 @@
+/**
+ * @fileoverview *  TripCard component displays a summary of a trip including its title,
+ * description, creator, and a mini map showing the trip route
+ */
 import React from 'react';
 import Map from './Map';
 
@@ -15,7 +19,7 @@ const TripCard = ({ trip, onSave, showSaveButton = true }) => {
         <p className="text-gray-600 text-sm mb-2">By: {trip.createdBy?.username || 'Unknown'}</p>
         <p className="text-gray-700 mb-4 flex-grow">{trip.description}</p>
         {showSaveButton && !isMyTrip && (
-          <button onClick={handleSave} className="w-full bg-green-700 text-white py-2 rounded hover:bg-green-800 transition mt-auto">Save to My Account</button>
+          <button onClick={handleSave} className="w-full bg-green-700 text-white py-2 rounded hover:bg-green-800 transition mt-auto">Save</button>
         )}
       </div>
     </div>

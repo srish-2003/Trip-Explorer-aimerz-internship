@@ -1,3 +1,18 @@
+/**
+ * @fileoverview * CreateTrip component allows users to plan and create a custom road trip
+  * Users can specify a trip title, description, start point, destination,
+ * and multiple waypoints. The component fetches coordinates using OpenStreetMap
+ * and visualizes the route on a map. Upon submission, the trip is sent
+ * to the backend API with authentication.
+ *
+ * Features:
+ * - Controlled inputs for title, description, start point, destination, and waypoints
+ * - Fetches latitude and longitude for all locations via OpenStreetMap API
+ * - Displays a live map preview of the trip route
+ * - Handles POST request to create a trip in the backend
+ * - Provides success or error messages
+ 
+ */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';

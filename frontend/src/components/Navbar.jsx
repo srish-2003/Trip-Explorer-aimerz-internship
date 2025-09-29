@@ -1,3 +1,9 @@
+/**
+ * @fileoverview *  Navbar component for the Trip Explorer app.
+ * Renders a top navigation bar with logo, navigation links, and a logout button.
+ * Highlights the active link and handles user logout.
+ 
+ */
 import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { assets } from '../assets/assets';
@@ -10,6 +16,7 @@ const Navbar = () => {
         localStorage.removeItem('user');
         navigate('/login');
     };
+
     return (
         <header className="bg-white shadow-md sticky top-0 z-50">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">

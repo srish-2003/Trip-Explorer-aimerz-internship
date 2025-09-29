@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Authentication controllers for handling user registration, login, and authentication.
+ */
+
 const User = require("../models/user_models");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
