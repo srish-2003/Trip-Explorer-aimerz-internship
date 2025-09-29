@@ -22,29 +22,19 @@ const app = express();
 
 // --- Middleware Configuration ---
 
-const allowedOrigins = ['http://localhost:5173']; 
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
+// Allow requests from any origin
+app.use(cors({
+  origin: true, // allow all origins
   credentials: true,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-};
-
-app.use(cors(corsOptions));
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Swagger options
+// --- Swagger Configuration ---
+
 const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
@@ -68,7 +58,7 @@ const swaggerOptions = {
       },
     },
   },
-  apis: ["./routes/*.js"], // ← point to your routes folder
+  apis: ["./routes/*.js"], // point to your routes folder
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -79,11 +69,12 @@ app.use('/api/auth', authRoutes);
 app.use('/api/trips', tripRoutes);
 app.use('/api/users', userRoutes);
 
-
 // --- Database Connection & Server Startup ---
 connectDB();
+
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
     console.log(`Server is running successfully on http://localhost:${port}`);
 });
+
 
