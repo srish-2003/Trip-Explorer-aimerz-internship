@@ -9,4 +9,4 @@ backend/.env
 # Common ignores
 .DS_Store
 .vscode/
-node_modules
+aimerz internship/node_modules
