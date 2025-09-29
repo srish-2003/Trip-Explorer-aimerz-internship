@@ -26,7 +26,7 @@ const HomePage = () => {
         const fetchTrips = async () => {
             const token = localStorage.getItem('token');
             try {
-                const res = await fetch('http://localhost:5000/api/trips/get-all-trips', {
+                const res = await fetch('https://trip-explorer-backend.onrender.com/api/trips/get-all-trips', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (!res.ok) throw new Error('Failed to fetch trips');
@@ -44,7 +44,7 @@ const HomePage = () => {
     const handleSaveTrip = async (tripId) => {
         const token = localStorage.getItem('token');
         try {
-            const res = await fetch(`http://localhost:5000/api/users/save-trip/${tripId}`, {
+            const res = await fetch(`https://trip-explorer-backend.onrender.com/api/users/save-trip/${tripId}`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` }
             });

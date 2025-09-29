@@ -73,7 +73,7 @@ const CreateTrip = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:5000/api/trips', {
+            const response = await fetch('https://trip-explorer-backend.onrender.com/api/trips', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify(tripData),
